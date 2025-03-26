@@ -1,11 +1,21 @@
 #pragma once
 #include <iostream>
 #include <string>
-
+#include <ctime>  
+#include <vector>
+enum{
+Tpye_Item,
+Tpye_weapon,
+Tpye_armor,
+Tpye_consumable, 
+Tpye_questItem,};
+	
+	
 using namespace std;
 class Item {
 public:
 	string name;
+	int type = Tpye_Item;
 	Item() {}
 	virtual ~Item() {}
 };
@@ -24,10 +34,11 @@ public:
 	//무기 이름
 	short element;//무기 속성
 	int attack = 0;
-	Weapon() {
-		name = "기본 검";
+	Weapon(string itemName, int itemAttack) {
+		type = Tpye_weapon;
+		name = itemName;
 		element = 0;
-		attack = 0;
+		attack = itemAttack;
 	}
 };
 
@@ -38,10 +49,11 @@ public:
 	//무기 이름
 	short element;//무기 속성
 	int defense = 0;
-	Armor() {
-		name = "기본 갑옷";
+	Armor(string itemName, int itemDefense) {
+		name = itemName;
+		type = Tpye_armor;
 		element = 0;
-		defense = 0;
+		defense = itemDefense;
 	}
 };
 
@@ -50,13 +62,19 @@ public:
 	int hp = 0;
 	int mp = 0;
 	virtual ~Consumable() {}
-	Consumable() {
-		name = "물약";
-		hp = 0;
-		mp = 0;
+	Consumable(string itemName, int itemHp=0,int itemMp=0) {
+		name = itemName;
+		hp = itemHp;mp = itemMp;
+		type = Tpye_consumable;
+		
 	}
 };
 
-class QuestItem :Equip {
-
+class QuestItem :public Equip {
+public:
+	virtual ~QuestItem() {}
+	QuestItem() {
+		name = "용의 눈물";
+		type = Tpye_questItem;
+	}
 };
